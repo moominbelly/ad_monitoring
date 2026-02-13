@@ -1,0 +1,367 @@
+/* layout.css - 레이아웃 구조 */
+
+/* ========== GNB (상단 네비게이션) ========== */
+.gnb {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 1000;
+}
+
+.gnb-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #007bff;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.main-nav a {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover {
+    color: #007bff;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 40px;
+
+}
+
+/* 광고주 선택 드롭다운 */
+.advertiser-select {
+     margin-left: auto;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.advertiser-select label {
+    font-size: 13px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.advertiser-select .select {
+    min-width: 200px;
+    height: 36px;
+    border-radius: 6px;
+}
+
+
+
+
+/* ========== Container ========== */
+.container {
+    display: flex;
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
+}
+
+/* ========== Sidebar ========== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background: #2c3e50;
+    overflow-y: auto;
+}
+
+.side-nav {
+    padding: 20px 0;
+}
+
+.side-nav ul {
+    list-style: none;
+}
+
+.side-nav li {
+    margin-bottom: 5px;
+}
+
+.side-nav a {
+    display: block;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.side-nav a:hover {
+    background: #34495e;
+    padding-left: 25px;
+}
+
+.side-nav a.active {
+    background: #007bff;
+    border-left: 4px solid #0056b3;
+}
+
+/* 카테고리 네비게이션 */
+.nav-category {
+    margin-bottom: 4px;
+}
+
+.category-title {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-title:hover {
+    background: #34495e;
+}
+
+.category-title .menu-icon {
+    font-size: 14px;
+    width: 20px;
+    margin-right: 12px;
+    text-align: center;
+}
+
+.category-title span {
+    flex: 1;
+}
+
+.category-title .arrow-icon {
+    font-size: 10px;
+    transition: transform 0.3s;
+}
+
+.nav-category.open .category-title .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* 서브 메뉴 */
+.sub-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #243342;
+}
+
+.nav-category.open .sub-menu {
+    max-height: 500px;
+}
+
+.sub-menu li {
+    margin: 0;
+}
+
+.sub-menu a {
+    display: block;
+    padding: 10px 20px 10px 40px;
+    color: #bdc3c7;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sub-menu a:hover {
+    background: #34495e;
+    color: #fff;
+    border-left-color: #007bff;
+}
+
+.sub-menu a.active {
+    background: #007bff;
+    color: #fff;
+    border-left-color: #0056b3;
+    font-weight: 600;
+}
+
+/* 단독 메뉴 */
+.single-menu {
+    display: block;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.single-menu i {
+    margin-right: 10px;
+}
+
+.single-menu:hover,
+.single-menu.active {
+    background: #34495e;
+    color: #fff;
+}
+
+/* ========== 사이드바 토글 (접기/펼치기) ========== */
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    background: #34495e;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.3s;
+}
+
+.sidebar-toggle:hover {
+    background: #4a6278;
+}
+
+.sidebar-toggle i {
+    color: #ecf0f1;
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+/* 사이드바 접힌 상태 */
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar.collapsed .side-nav {
+    padding: 20px 0;
+}
+
+.sidebar.collapsed .category-title span,
+.sidebar.collapsed .category-title .arrow-icon,
+.sidebar.collapsed .sub-menu,
+.sidebar.collapsed .single-menu span {
+    display: none;
+}
+
+.sidebar.collapsed .category-title {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar.collapsed .category-title .menu-icon {
+    margin-right: 0;
+    font-size: 16px;
+}
+
+.sidebar.collapsed .single-menu {
+    justify-content: center;
+    text-align: center;
+}
+
+.sidebar.collapsed .single-menu .menu-icon {
+    margin-right: 0;
+    font-size: 16px;
+}
+
+.sidebar.collapsed .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+/* 사이드바 접힌 상태일 때 컨텐츠 영역 */
+.sidebar.collapsed ~ .content {
+    margin-left: 60px;
+}
+
+/* ========== Main Content ========== */
+.content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 30px;
+    background: #f5f5f5;
+}
+
+.content-header {
+    margin-bottom: 30px;
+}
+
+.content-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.breadcrumb {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+}
+
+.breadcrumb a {
+    color: #007bff;
+}
+
+.breadcrumb span {
+    color: #999;
+}
+
+/* ========== 반응형 ========== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .content {
+        margin-left: 200px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gnb-inner {
+        padding: 0 15px;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .content {
+        margin-left: 0;
+        padding: 15px;
+    }
+}

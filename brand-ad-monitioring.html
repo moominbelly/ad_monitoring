@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색광고 모니터링</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/monitoring.css">
+    
+</head>
+<body>
+    <!-- GNB -->
+    <header class="gnb">
+        <div class="gnb-inner">
+            <h1 class="logo">Admin System</h1>
+            <div class="advertiser-select">
+                <select class="select" id="advertiserDropdown">
+                    <option value="all">전체 광고주</option>
+                    <option value="adv001">광고주 A</option>
+                    <option value="adv002">광고주 B</option>
+                </select>
+            </div>
+
+            <div class="user-area">
+                <span>관리자님</span>
+                <button class="btn btn-sm btn-outline">로그아웃</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <button class="sidebar-toggle" title="사이드바 접기/펼치기">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <nav class="side-nav">
+                <ul>
+                    <li class="nav-category">
+                        <a href="#" class="category-title">
+                            <i class="fas fa-user-cog menu-icon"></i>
+                            <span>사용자 설정</span>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">ADMIN 등록/수정</a></li>
+                            <li><a href="#">팀 등록/수정</a></li>
+                            <li><a href="#">팀 user 등록</a></li>
+                            <li><a href="#">광고주 등록</a></li>
+                            <li><a href="#">API 연동</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-category">
+                        <a href="#" class="category-title">
+                            <i class="fas fa-shield-alt menu-icon"></i>
+                            <span>부정클릭 모니터링</span>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">부정클릭 모니터링</a></li>
+                            <li><a href="#">부정클릭 모니터링 설정</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-category open">
+                        <a href="#" class="category-title">
+                            <i class="fas fa-search menu-icon"></i>
+                            <span>검색광고 모니터링</span>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">키워드 광고 모니터링</a></li>
+                            <li><a href="#" class="active">브랜드 광고 모니터링</a></li>
+                            <li><a href="#">모니터링 설정</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-category">
+                        <a href="#" class="category-title">
+                            <i class="fas fa-chart-bar menu-icon"></i>
+                            <span>통합 광고 리포트 시스템</span>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">리포트 설정</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-category">
+                        <a href="#" class="category-title">
+                            <i class="fas fa-cogs menu-icon"></i>
+                            <span>광고 운영 시스템</span>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">자동입찰 시스템 관리</a></li>
+                            <li><a href="#">자동입찰 시스템 설정</a></li>
+                            <li><a href="#">리포트 설정</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="single-menu"><i class="fas fa-chart-line menu-icon"></i><span>단독 메뉴</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Content Header -->
+            <div class="content-header">
+                <h2 class="content-title">브랜드 검색광고 모니터링</h2>
+                <div class="breadcrumb">
+                    <a href="#">홈</a>
+                    <span>/</span>
+                    <span>모니터링</span>
+                    <span>/</span>
+                    <span>브랜드 검색광고 모니터링</span>
+                </div>
+            </div>
+
+            <!-- 필터 카드 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">검색 필터</h3>
+                </div>
+                <div class="card-body">
+                    <form class="filter-form">
+                        <div class="filter-row">
+                            <div class="filter-item">
+                                <label class="form-label">조회 기간</label>
+                                <select class="select" id="periodType">
+                                    <option value="weekly">주간</option>
+                                    <option value="monthly">월간</option>
+                                </select>
+                            </div>
+
+                            <!-- 주간 선택 -->
+                            <div class="filter-item" id="weeklyFilter" style="display: none;">
+                                <label class="form-label">연도-주차</label>
+                                <div style="display: flex; gap: 8px;">
+                                    <input type="number" class="input" id="weekYear" placeholder="2025" min="2020" max="2030" style="width: 100px;">
+                                    <span style="line-height: 36px;">년</span>
+                                    <input type="number" class="input" id="weekNumber" placeholder="1" min="1" max="53" style="width: 80px;">
+                                    <span style="line-height: 36px;">주차</span>
+                                </div>
+                            </div>
+
+                            <!-- 월간 선택 -->
+                            <div class="filter-item" id="monthlyFilter" style="display: none;">
+                                <label class="form-label">연도-월</label>
+                                <input type="month" class="input" id="monthPicker">
+                            </div>
+
+                            <!-- 브랜드 선택 (다중) -->
+                            <div class="filter-item">
+                                <label class="form-label">브랜드</label>
+                                <div class="multi-select-dropdown">
+                                    <div class="multi-select-trigger" id="brandDropdownTrigger">
+                                        <span id="brandSelectedText">전체</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="multi-select-options" id="brandDropdownOptions" style="display: none;">
+                                        <label>
+                                            <input type="checkbox" name="brands" value="all" id="brandAll" checked>
+                                            전체
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="brands" value="브랜드 A">
+                                            브랜드 A
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="brands" value="브랜드 B">
+                                            브랜드 B
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="brands" value="브랜드 C">
+                                            브랜드 C
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" name="brands" value="브랜드 D">
+                                            브랜드 D
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 디바이스 -->
+                            <div class="form-item">
+                                <label class="form-label">디바이스</label>
+                                <select class="select">
+                                    <option value="">전체</option>
+                                    <option value="pc">PC</option>
+                                    <option value="mobile">모바일</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 버튼 영역 -->
+                        <div class="filter-actions">
+                            <button type="submit" class="btn btn-primary">검색</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 모니터링 테이블 카드 -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">키워드 광고 모니터링 현황</h3>
+                        <p class="text-muted" style="font-size: 13px; margin-top: 4px;">
+                            최종 업데이트: <span id="lastUpdateTime">로딩 중...</span>
+                        </p>
+                    </div>
+                    <div class="card-header-actions">
+                        <button type="button" class="btn btn-primary" id="refreshBtn">새로고침</button>
+                        <button type="button" class="btn btn-success" id="excelDownloadBtn">
+                            <i class="fas fa-file-excel"></i> 엑셀 다운로드
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0; overflow: hidden;">
+                    <div class="monitoring-table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="vertical-align: middle; background: #fafbfc;">브랜드명</th>
+                                    <th colspan="2" style="text-align: center; background: #f0f0f0;">디바이스</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center; background: #f8f9fa; width: 200px;">PC</th>
+                                    <th style="text-align: center; background: #f8f9fa; width: 200px;">MO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 브랜드 A -->
+                                <tr>
+                                    <td class="keyword-cell">브랜드 A</td>
+                                    <!-- PC -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/003459/FFFFFF?text=Brand+A+PC" alt="브랜드A PC 광고" class="ad-img">
+                                    </td>
+                                    <!-- MO -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/00A8E8/FFFFFF?text=Brand+A+MO" alt="브랜드A MO 광고" class="ad-img">
+                                    </td>
+                                </tr>
+
+                                <!-- 브랜드 B -->
+                                <tr>
+                                    <td class="keyword-cell">브랜드 B</td>
+                                    <!-- PC -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/003459/FFFFFF?text=Brand+B+PC" alt="브랜드B PC 광고" class="ad-img">
+                                    </td>
+                                    <!-- MO -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <div class="ad-img-placeholder">No Image</div>
+                                    </td>
+                                </tr>
+
+                                <!-- 브랜드 C -->
+                                <tr>
+                                    <td class="keyword-cell">브랜드 C</td>
+                                    <!-- PC -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/003459/FFFFFF?text=Brand+C+PC" alt="브랜드C PC 광고" class="ad-img">
+                                    </td>
+                                    <!-- MO -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/00A8E8/FFFFFF?text=Brand+C+MO" alt="브랜드C MO 광고" class="ad-img">
+                                    </td>
+                                </tr>
+
+                                <!-- 브랜드 D -->
+                                <tr>
+                                    <td class="keyword-cell">브랜드 D</td>
+                                    <!-- PC -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <div class="ad-img-placeholder">No Image</div>
+                                    </td>
+                                    <!-- MO -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/00A8E8/FFFFFF?text=Brand+D+MO" alt="브랜드D MO 광고" class="ad-img">
+                                    </td>
+                                </tr>
+
+                                <!-- 브랜드 E -->
+                                <tr>
+                                    <td class="keyword-cell">브랜드 E</td>
+                                    <!-- PC -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/003459/FFFFFF?text=Brand+E+PC" alt="브랜드E PC 광고" class="ad-img">
+                                    </td>
+                                    <!-- MO -->
+                                    <td style="text-align: center; padding: 10px;">
+                                        <img src="https://via.placeholder.com/120x80/00A8E8/FFFFFF?text=Brand+E+MO" alt="브랜드E MO 광고" class="ad-img">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- 페이지네이션 추가 -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>이전</button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">4</button>
+                    <button class="pagination-btn">5</button>
+                    <button class="pagination-btn">다음</button>
+                </div>
+                <div class="card-footer">
+                    <div class="text-muted" style="font-size: 13px;">
+                        💡 이미지를 클릭하면 크게 볼 수 있습니다.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/monitoring-ui.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
